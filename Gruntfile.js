@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         var color = colors[name];
 
         fileCreatorTask['.tmp/' + name + '.less'] = new Function ('fs', 'fd', 'done', '{\
-            fs.writeFileSync(fd, \'@import "../less/style";@color-primary:' + color + ';@color-link:' + color + ';\');\
+            fs.writeSync(fd, \'@import "../less/style";@color-primary:' + color + ';@color-link:' + color + ';\');\
             done();\
         }');
         var distFile = 'dist/material-' + name + '.css';
@@ -53,8 +53,7 @@ module.exports = function (grunt) {
         lessFiles[distFile] = '.tmp/' + name + '.less';
         replaceFiles.push({src: [distFile], dest: distFile});
         cssMinFiles[distFile] = distFile
-    }
-
+    } 
 
     grunt.initConfig({
         "file-creator": {
